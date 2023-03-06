@@ -1,3 +1,4 @@
+import 'package:fast_kaskrot/pages/home_page.dart';
 import 'package:fast_kaskrot/util/AppColor.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,15 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: AppColor.scaffoldBackColor
       ),
-      home: Scaffold(),
+      routes: {
+        '/' : (context) => const HomePage(),
+        'test' : (context) =>  Container()
+        // 'restaurant-menu' : (context) => const HomePage(),
+        // 'cart' : (context) => const RegisterWidget(),
+        // 'orders-history' : (context) => const
+        //'profile' : (context) => Scaffold(),
+        //'transaction' : (context) => Transaction()
+        },
     );
   }
 }
