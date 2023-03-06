@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class RestaurantSection extends StatelessWidget {
-  const RestaurantSection({super.key});
+  final String imageName;
+  final String rating;
+  final String name;
+  final String address;
+
+  const RestaurantSection(
+      {super.key, required this.imageName, required this.rating, required this.name,required this.address}
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,7 @@ class RestaurantSection extends StatelessWidget {
                     topRight: Radius.circular(20)
                 ),
                 child: Image.asset(
-                  'assets/images/le_tacos_de_lyon.jpg',
+                  'assets/images/$imageName',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -38,22 +45,22 @@ class RestaurantSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 4,bottom: 5),
+                       Padding(
+                        padding: const EdgeInsets.only(left: 4,bottom: 5),
                         child: Text(
-                          'Tacos de Lyon',
-                          style: TextStyle(
+                          name,
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold ,
                               fontSize: 16
                           ),
                         ),
                       ),
                       Row(
-                        children: const [
-                          Icon(Icons.place_outlined),
+                        children:  [
+                          const Icon(Icons.place_outlined),
                           Padding(
-                            padding: EdgeInsets.only(left: 5),
-                            child: Text('Marrakesh 4994 , Palestine road'),
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(address),
                           )
                         ],
                       )
@@ -68,17 +75,17 @@ class RestaurantSection extends StatelessWidget {
                     padding: const EdgeInsets.all(7),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
+                      children:  [
+                        const Icon(
                             Icons.star,
                             size: 10,
                             color: Colors.white
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 5),
+                          padding: const EdgeInsets.only(left: 5),
                           child: Text(
-                            '4.1',
-                            style: TextStyle(color: Colors.white),
+                            rating,
+                            style: const TextStyle(color: Colors.white),
                           ),
                         )
                       ],
@@ -91,5 +98,4 @@ class RestaurantSection extends StatelessWidget {
       ),
     );
   }
-
 }
