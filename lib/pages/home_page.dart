@@ -1,5 +1,5 @@
 import 'package:fast_kaskrot/components/app_bar.dart';
-import 'package:fast_kaskrot/components/bottom_navigation.dart';
+import 'package:fast_kaskrot/components/restaurant_section.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,18 +15,24 @@ class HomePage extends StatelessWidget {
                 color: Colors.black,
                 child: const AppBarWidget(barName: 'Home')
             ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
+              child: const Text(
+                  'Nearby Restaurants' ,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      letterSpacing: 1
+                  )
+              )
+            ),
+          Column(
+            children: const [
+              RestaurantSection(),
+            ],
+          )
         ],
       ),
-        // bottom: PreferredSize(
-        //     preferredSize: const Size.fromHeight(50),
-        //     child: Row(
-        //       children: [
-        //         Text('data')
-        //       ],
-        //     )
-        // ),
-      );
-
+    );
   }
-
 }
