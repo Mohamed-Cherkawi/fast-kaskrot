@@ -1,4 +1,5 @@
 import 'package:fast_kaskrot/components/app_bar.dart';
+import 'package:fast_kaskrot/components/bottom_navigation.dart';
 import 'package:fast_kaskrot/components/restaurant_section.dart';
 import 'package:flutter/material.dart';
 
@@ -26,13 +27,19 @@ class HomePage extends StatelessWidget {
                   )
               )
             ),
-          Column(
+            Column(
             children: const [
-              RestaurantSection(),
+              RestaurantSection(
+                  imageName: 'le_tacos_de_lyon.jpg',
+                  name: 'Tacos de Lyon',
+                  address: 'Marrakesh 4000 , Palestinian road ',
+                  rating: '4.3',
+              ),
             ],
           )
         ],
       ),
+      bottomNavigationBar: const NavigationAppBar()
     );
   }
 }
