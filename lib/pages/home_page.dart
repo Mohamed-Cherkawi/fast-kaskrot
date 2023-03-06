@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
             Container(
                 height: 60,
                 color: Colors.black,
-                child: const AppBarWidget(barName: 'Home')
+                child:  AppBarWidget(barName: 'Home')
             ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
