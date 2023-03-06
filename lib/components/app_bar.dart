@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatelessWidget {
   final String barName;
+  dynamic leadingIcon;
 
-  const AppBarWidget({super.key, required this.barName});
+   AppBarWidget({super.key, required this.barName , this.leadingIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,11 @@ class AppBarWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          if( leadingIcon != null )
+                Icon(
+                  leadingIcon ,
+                  color: Colors.white
+                ),
            Text(
               barName,
               style: const TextStyle(color: Colors.white),
