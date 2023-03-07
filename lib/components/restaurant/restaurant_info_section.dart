@@ -168,6 +168,7 @@ class RestaurantInfo extends StatelessWidget {
                     letterSpacing: 2
                 ),
               ),
+              SizedBox(height: 15),
               Meal(),
             ],
           ),
