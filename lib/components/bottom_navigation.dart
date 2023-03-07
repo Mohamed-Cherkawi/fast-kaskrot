@@ -8,27 +8,25 @@ class NavigationAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  const GNav(
-      color: Colors.black,
+      backgroundColor: Colors.black,
+      color: Colors.white,
       padding: EdgeInsets.all(20),
       tabBorderRadius: 2,
       selectedIndex: 0,
-      gap: 8,
+      gap: 20,
+      activeColor: Colors.white,
       tabs: [
         GButton(
-          icon: Icons.home,
-          text: 'Home',
+          icon: Icons.restaurant,
+          text: 'Restaurants',
         ),
         GButton(
-          icon: Icons.supervised_user_circle_outlined,
-          text: 'Contacts',
+          icon: Icons.shopping_cart_outlined,
+          text: 'Cart',
         ),
         GButton(
-          icon: Icons.wallet,
-          text: 'Wallet',
-        ),
-        GButton(
-          icon: Icons.settings,
-          text: 'Settings',
+          icon: Icons.history_sharp,
+          text: 'History',
         ),
       ],
     );
