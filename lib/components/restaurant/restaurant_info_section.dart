@@ -1,3 +1,4 @@
+import 'package:fast_kaskrot/components/restaurant/meal.dart';
 import 'package:fast_kaskrot/components/restaurant/menu_badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -147,19 +148,18 @@ class RestaurantInfo extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                  height: 50,
+                  height: 40,
                   child: MenuBadges(mealTypes: ['Appetizers','Breakfast','Lunch','Mains'])
               )
             ],
           ),
         ),
         Container(
-          height: 100,
           padding: const EdgeInsets.symmetric(vertical: 20 , horizontal: 25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children:   const [
               Text(
                 "Appetizers",
                 style: TextStyle(
@@ -168,6 +168,7 @@ class RestaurantInfo extends StatelessWidget {
                     letterSpacing: 2
                 ),
               ),
+              Meal(),
             ],
           ),
         )

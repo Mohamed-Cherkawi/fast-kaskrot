@@ -20,7 +20,7 @@ class MenuBadges extends StatelessWidget {
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
               color: Colors.black,
-              borderRadius: BorderRadius.circular(15)
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
               mealTypes[index] ,
