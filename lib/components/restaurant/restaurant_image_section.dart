@@ -19,16 +19,16 @@ class RestaurantImage extends StatelessWidget {
                 bottom: 10,
                 right: 80,
                 child: Container(
-                  padding: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(7),
                   decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(30))
+                      color: Colors.black,
+                      borderRadius: BorderRadius.all(Radius.circular(12))
                   ),
                   child: InkWell(
                     onTap: (){},
                     child: const Icon(
                         Icons.phone ,
-                        color: Colors.black
+                        color: Colors.white
                     ),
                   ),
                 )
@@ -37,10 +37,10 @@ class RestaurantImage extends StatelessWidget {
                 bottom: 10,
                 right: 20,
                 child: Container(
-                  padding: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(7),
                   decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(30))
+                      borderRadius: BorderRadius.all(Radius.circular(12))
                   ),
                   child: InkWell(
                     onTap: (){},
