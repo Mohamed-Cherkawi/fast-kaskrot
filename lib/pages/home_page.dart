@@ -1,6 +1,6 @@
 import 'package:fast_kaskrot/components/app_bar.dart';
 import 'package:fast_kaskrot/components/bottom_navigation.dart';
-import 'package:fast_kaskrot/components/restaurant_section.dart';
+import 'package:fast_kaskrot/components/home/restaurant_section.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
