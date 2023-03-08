@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
 
 class Meal extends StatefulWidget {
-  const Meal({super.key});
+  final String imageName;
+  final String title;
+  final List<String> availability;
+  final String description;
+  final double price;
+
+  const Meal(
+      {super.key, required this.imageName,
+      required this.title,
+      required this.availability,
+      required this.description,
+      required this.price
+      });
 
   @override
   State<Meal> createState() => _MealState();
@@ -23,10 +35,10 @@ class _MealState extends State<Meal> {
           Container(
             margin: const EdgeInsets.only(right: 10),
             width: 100,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+            decoration:  BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
               image: DecorationImage(
-                  image: AssetImage('assets/images/pizza-margareta.png'),
+                  image: AssetImage('assets/images/${widget.imageName}'),
                   fit: BoxFit.cover
               )
             ),
@@ -35,24 +47,24 @@ class _MealState extends State<Meal> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children:  [
-                const Text(
-                  'Pizza Margarita' ,
-                  style: TextStyle(
+                 Text(
+                  widget.title ,
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                       letterSpacing: 1
                   ),
                 ) ,
-                const Text('Availability : lunch , dinner'),
-                const Text('Spicy delicious pizza , \n take 2 and get one for free'),
-                Container(
+                 Text('Availability : ${widget.availability.join(",")}'),
+                 Text(widget.description),
+                SizedBox(
                   width: 220,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:  [
-                        const Text(
-                          '\$45.00' ,
-                          style: TextStyle(
+                         Text(
+                          '\$${widget.price.toString()}' ,
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
