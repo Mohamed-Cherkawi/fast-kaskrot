@@ -169,7 +169,20 @@ class RestaurantInfo extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 15),
-              Meal(),
+              Meal(
+                imageName: 'pizza-margareta.png',
+                title: 'Pizza Margarita',
+                availability: ['lunch','dinner'],
+                description: 'Spicy delicious pizza , \n take 2 and get one for free',
+                price: 40.00,
+              ),
+              Meal(
+                imageName: 'tacos.jpeg',
+                title: 'Meat Tacos',
+                availability: ['lunch','dinner'],
+                description: 'Massive tacos ,with your \npreferred sauce + 1 fries',
+                price: 30.00,
+              ),
             ],
           ),
         )
