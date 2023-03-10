@@ -27,16 +27,7 @@ class HomePage extends StatelessWidget {
                   )
               )
             ),
-            Column(
-            children: const [
-              RestaurantSection(
-                  imageName: 'le_tacos_de_lyon.jpg',
-                  name: 'Tacos de Lyon',
-                  address: 'Marrakesh 4000 , Palestinian road ',
-                  rating: '4.3',
-              ),
-            ],
-          )
+            RestaurantSection()
         ],
       ),
       bottomNavigationBar: const NavigationAppBar()
