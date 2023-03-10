@@ -5,13 +5,15 @@ import '../components/restaurant/restaurant_info_section.dart';
 
 
 class RestaurantWidget extends StatelessWidget {
-  const RestaurantWidget({super.key});
+  int restaurantId;
+
+  RestaurantWidget({super.key , required this.restaurantId});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: RestaurantInfo(imageName: 'le_tacos_de_lyon.jpg',),
-      bottomNavigationBar: NavigationAppBar(),
+    return  Scaffold(
+      body: RestaurantInfo(restaurantId: restaurantId),
+      bottomNavigationBar: const NavigationAppBar(),
     );
   }
 
