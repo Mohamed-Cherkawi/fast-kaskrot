@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fast_kaskrot/models/meal.dart';
 import 'package:fast_kaskrot/models/restaurant.dart';
 import 'package:fast_kaskrot/service/restaurant_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +8,8 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
+
+import '../service/meal_service.dart';
 
 class SqlDb {
 
@@ -19,7 +22,7 @@ class SqlDb {
   Future<Database> initialDb() async {
     WidgetsFlutterBinding.ensureInitialized();
     final String path = join(await getDatabasesPath() , 'kaskrot.db');
-    return await openDatabase(path,onCreate: onCreate , version: 13 , onUpgrade: onUpgrade);
+    return await openDatabase(path,onCreate: onCreate , version: 19 , onUpgrade: onUpgrade);
   }
 
   Future<void> onCreate(Database db , int version) async {
@@ -27,6 +30,7 @@ class SqlDb {
     CREATE TABLE "meal" (
       "id" INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
       "image_name" TEXT NOT NULL,
+      "title" TEXT NOT NULL,
       "availability" TEXT NOT NULL,
       "description" TEXT NOT NULL,
       "price" REAL NOT NULL
@@ -55,7 +59,24 @@ class SqlDb {
     // restaurantService.insertRestaurant(Restaurant(id: 2,imageName: 'mc-donalds.jpg', rating: '5.5', name: "Mac Donald's", address: "Marrakesh 4000 , Sidi Abad"));
     // restaurantService.insertRestaurant(Restaurant(id: 4,imageName: 'bawlo.jpg', rating: '3.4', name: "Bawlo", address: "Marrakesh 4000 , Jamaa El Fena"));
     // restaurantService.insertRestaurant(Restaurant(id: 3,imageName: 'pizza-hut.jpg', rating: '5.2', name: "Pizza Hut", address: "Marrakesh 4000 , Casablanca road , Diour Marjane"));
+    
+    MealService mealService = MealService();
 
+    mealService.insertMeal(
+        Meal(id: 2 , imageName: 'tacos-nuggets.png',title: 'Tacos Nuggets' , availability: 'lunch,dinner' , description: 'Massive nuggets tacos ,with \npreferred sauce + 1 fries',price: 35.00 , restaurantId: 1)
+    );
+    mealService.insertMeal(
+        Meal(id: 3 , imageName: 'tacos-xxl.png',title: 'Tacos XXL' , availability: 'lunch,dinner' , description: 'Massive giant tacos ,with \npreferred sauce + 2 fries',price: 55.00 , restaurantId: 1)
+    );
+    mealService.insertMeal(
+        Meal(id: 4 , imageName: 'big-tasty.jpg',title: 'Big Tasty' , availability: 'lunch,dinner' , description: 'Delicious Tasty Hamburger, + 1 fries + 1 soda',price: 45.00 , restaurantId: 2)
+    );
+    mealService.insertMeal(
+        Meal(id: 5 , imageName: 'mac-flurry.png',title: 'Mac Flurry' , availability: 'breakfast,lunch,dinner' , description: 'Fresh Coled ice cream with eminem,kitkat,twix',price: 20.00 , restaurantId: 2)
+    );
+    mealService.insertMeal(
+        Meal(id: 6 , imageName: 'happy-meal.png',title: 'Happy Meal' , availability: 'lunch,dinner' , description: 'Incrdible hamburger meal for childrens ,+1 fries +1 soda +1 game ',price: 30.00 , restaurantId: 2)
+    );
     debugPrint("=================  OnUpgrade called =================");
   }
 
