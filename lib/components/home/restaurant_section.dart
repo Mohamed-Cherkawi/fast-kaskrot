@@ -36,9 +36,14 @@ class RestaurantSection extends StatelessWidget {
                                 topLeft: Radius.circular(20) ,
                                 topRight: Radius.circular(20)
                             ),
-                            child: Image.asset(
-                              'assets/images/${restaurant.imageName}',
-                              fit: BoxFit.cover,
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.pushNamed(context, "restaurant-info" ,arguments: restaurant.id);
+                              },
+                              child: Image.asset(
+                                'assets/images/${restaurant.imageName}',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
