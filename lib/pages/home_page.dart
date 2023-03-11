@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
                   )
               )
             ),
-            RestaurantSection()
+            const RestaurantSection()
         ],
       ),
       bottomNavigationBar: const NavigationAppBar()
