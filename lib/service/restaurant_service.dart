@@ -4,21 +4,27 @@ import 'package:flutter/material.dart';
 
 class RestaurantService {
   SqlDb database = SqlDb();
+  final String tableName = 'restaurant';
 
   Future<void> insertRestaurant(Restaurant restaurant) async {
-    final int response = await database.insertData('restaurant', restaurant.toMap());
+    final int response = await database.insertData(tableName, restaurant.toMap());
     if(response != 0) {
       debugPrint('$restaurant has been saved successfully');
     }
   }
 
-  // A method that retrieves all the dogs from the dogs table.
   Future<List<Restaurant>> restaurants() async {
-    // Get a reference to the database.
-    // Query the table for all The Dogs.
-    final List<Map<String, dynamic>> maps = await database.queryData('restaurant');
+    final List<Map<String, dynamic>> maps = await database.queryData(tableName);
 
-    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    // Convert the List<Map<String, dynamic> into a List<Restaurant>.
+    return _listGenerator(maps);
+  }
+  Future<List<Restaurant>> getRestaurantsId(int id) async {
+    final List<Map<String, dynamic>> maps = await database.queryDataById(tableName, id);
+
+    return _listGenerator(maps);
+  }
+  List<Restaurant> _listGenerator(List<Map<String, dynamic>> maps) {
     return List.generate(maps.length, (i) {
       return Restaurant(
         id: maps[i]['id'],
