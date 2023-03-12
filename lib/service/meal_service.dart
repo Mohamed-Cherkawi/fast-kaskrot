@@ -22,7 +22,7 @@ class MealService {
   }
 
   Future<List<Meal>> getMealsByRestaurantId(int id) async {
-    final List<Map<String, dynamic>> maps = await database.queryDataById(tableName, id);
+    final List<Map<String, dynamic>> maps = await database.queryDataById(tableName,'restaurant_id' ,id);
 
     return _listGenerator(maps);
   }

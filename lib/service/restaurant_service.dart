@@ -19,8 +19,8 @@ class RestaurantService {
     // Convert the List<Map<String, dynamic> into a List<Restaurant>.
     return _listGenerator(maps);
   }
-  Future<List<Restaurant>> getRestaurantsId(int id) async {
-    final List<Map<String, dynamic>> maps = await database.queryDataById(tableName, id);
+  Future<List<Restaurant>> getRestaurantsById(int id) async {
+    final List<Map<String, dynamic>> maps = await database.queryDataById(tableName,'id' ,id);
 
     return _listGenerator(maps);
   }
