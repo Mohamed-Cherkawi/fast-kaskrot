@@ -1,192 +1,247 @@
-import 'package:fast_kaskrot/components/restaurant/meal.dart';
 import 'package:fast_kaskrot/components/restaurant/menu_badges.dart';
+import 'package:fast_kaskrot/models/restaurant.dart';
+import 'package:fast_kaskrot/service/restaurant_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/meal.dart';
+import '../../service/meal_service.dart';
 import '../app_bar.dart';
+import 'meal_widget.dart';
 
-class RestaurantInfo extends StatelessWidget {
-  final String imageName;
+class RestaurantInfo extends StatefulWidget {
+  int restaurantId;
 
-  const RestaurantInfo({super.key ,required this.imageName});
+  RestaurantInfo({super.key ,required this.restaurantId});
+
+  @override
+  State<RestaurantInfo> createState() => _RestaurantInfoState();
+}
+
+class _RestaurantInfoState extends State<RestaurantInfo> {
+  Future<List<Restaurant>>? _restaurantsFuture;
+  Future<List<Meal>>? _mealsFuture;
+
+  final MealService mealService = MealService();
+  final RestaurantService restaurantService = RestaurantService();
+
+
+  @override
+  void initState() {
+    super.initState();
+    _restaurantsFuture = restaurantService.getRestaurantsById(widget.restaurantId);
+    _mealsFuture = mealService.getMealsByRestaurantId(widget.restaurantId);
+  }
 
   @override
    Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Container(
-            height: 60,
-            color: Colors.black,
-            child:  AppBarWidget(leadingIcon: Icons.arrow_back_outlined,barName: 'Restaurant')
-        ),
-        SizedBox(
-        width: double.infinity,
-        child: Stack(
-            children: [
-              Image.asset(
-                'assets/images/$imageName',
-                fit: BoxFit.cover,
-              ),
-              Positioned(
-                  bottom: 10,
-                  right: 80,
-                  child: Container(
-                    padding: const EdgeInsets.all(7),
-                    decoration: const BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.all(Radius.circular(12))
-                    ),
-                    child: InkWell(
-                      onTap: (){},
-                      child: const Icon(
-                          Icons.phone ,
-                          color: Colors.white
-                      ),
-                    ),
-                  )
-              ),
-              Positioned(
-                  bottom: 10,
-                  right: 20,
-                  child: Container(
-                    padding: const EdgeInsets.all(7),
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(12))
-                    ),
-                    child: InkWell(
-                      onTap: (){},
-                      child: const Icon(
-                          Icons.directions ,
-                          color: Colors.black
-                      ),
-                    ),
-                  )
-              ),
-            ]
-        ),
-      ),
-        Container(
-            height: 130,
-            width: double.infinity,
-            //color: Colors.deepPurpleAccent,
-            padding: const EdgeInsets.symmetric(vertical: 30 , horizontal: 25),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return FutureBuilder<List<Restaurant>>(
+      future: _restaurantsFuture,
+      builder: (context , snapshot) {
+        if(snapshot.hasData) {
+          final restaurant = snapshot.data!.first;
+          return ListView(
               children: [
-                const Text(
-                  "Tacos de Lyon",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w900 ,
-                      fontSize: 20 ,
-                      letterSpacing: 2
+                Container(
+                    height: 60,
+                    color: Colors.black,
+                    child: AppBarWidget(leadingIcon: Icons.arrow_back_outlined,
+                        barName: 'Restaurant')
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Stack(
+                      children: [
+                        Image.asset(
+                          'assets/images/${restaurant.imageName}',
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned(
+                            bottom: 10,
+                            right: 80,
+                            child: Container(
+                              padding: const EdgeInsets.all(7),
+                              decoration: const BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(12))
+                              ),
+                              child: InkWell(
+                                onTap: () {},
+                                child: const Icon(
+                                    Icons.phone,
+                                    color: Colors.white
+                                ),
+                              ),
+                            )
+                        ),
+                        Positioned(
+                            bottom: 10,
+                            right: 20,
+                            child: Container(
+                              padding: const EdgeInsets.all(7),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(12))
+                              ),
+                              child: InkWell(
+                                onTap: () {},
+                                child: const Icon(
+                                    Icons.directions,
+                                    color: Colors.black
+                                ),
+                              ),
+                            )
+                        ),
+                      ]
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Icon(
-                            Icons.place_outlined ,
-                            color: CupertinoColors.systemGrey,
-                          ),
+                Container(
+                  height: 130,
+                  width: double.infinity,
+                  //color: Colors.deepPurpleAccent,
+                  padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 25),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        restaurant.name,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 20,
+                            letterSpacing: 2
                         ),
-                        Text(
-                          'Marrakesh 4000 , Palestinian road' ,
-                          style: TextStyle(
-                              color: CupertinoColors.systemGrey,
-                              fontSize: 10 ,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(right: 5),
+                                child: Icon(
+                                  Icons.place_outlined,
+                                  color: CupertinoColors.systemGrey,
+                                ),
+                              ),
+                              Text(
+                                restaurant.address,
+                                style: const TextStyle(
+                                    color: CupertinoColors.systemGrey,
+                                    fontSize: 10,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Icon(
-                              Icons.access_time_outlined ,
-                              color: CupertinoColors.systemGrey
-                          ),
+                          Row(
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.only(right: 5),
+                                child: Icon(
+                                    Icons.access_time_outlined,
+                                    color: CupertinoColors.systemGrey
+                                ),
+                              ),
+                              Text(
+                                  '4:00 AM - 11:00 PM',
+                                  style: TextStyle(
+                                      color: CupertinoColors.systemGrey,
+                                      fontSize: 10,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold
+                                  )
+                              )
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 130,
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        "Our Menu",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 20,
+                            letterSpacing: 2
                         ),
-                        Text(
-                            '4:00 AM - 11:00 PM' ,
-                            style: TextStyle(
-                                color: CupertinoColors.systemGrey,
-                                fontSize: 10 ,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.bold
-                            )
-                        )
-                      ],
-                    )
-                  ],
+                      ),
+                      SizedBox(
+                          height: 40,
+                          child: MenuBadges(mealTypes: [
+                            'Appetizers',
+                            'Breakfast',
+                            'Lunch',
+                            'Mains'
+                          ])
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children:   [
+                      const Text(
+                        "Meals",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 20,
+                            letterSpacing: 2
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      FutureBuilder(
+                          future: _mealsFuture,
+                          builder: (context , snapshot){
+                            if(snapshot.hasData){
+                              final meals = snapshot.data!;
+                              print(meals);
+                                if(meals.isNotEmpty){
+                                      return Column(
+                                        children: [
+                                          for(Meal meal in meals)
+                                            MealWidget(
+                                              imageName: meal.imageName,
+                                              title: meal.title,
+                                              availability: meal.availability,
+                                              description: meal.description,
+                                              price: meal.price,
+                                            ),
+                                        ],
+                                      );
+                                } else {
+                                  return const Text('No Meals Yet To Show  In The Restaurant');
+                                }
+                            } else if(snapshot.hasError){
+                                return const Text('Something went wrong ');
+                            }
+                            return const CircularProgressIndicator();
+                      })
+                    ],
+                  ),
                 )
-              ],
-            ),
-          ),
-        Container(
-          height: 130,
-          padding: const EdgeInsets.symmetric(vertical: 20 , horizontal: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
-                "Our Menu",
-                style: TextStyle(
-                    fontWeight: FontWeight.w900 ,
-                    fontSize: 20 ,
-                    letterSpacing: 2
-                ),
-              ),
-              SizedBox(
-                  height: 40,
-                  child: MenuBadges(mealTypes: ['Appetizers','Breakfast','Lunch','Mains'])
-              )
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 20 , horizontal: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children:   const [
-              Text(
-                "Appetizers",
-                style: TextStyle(
-                    fontWeight: FontWeight.w900 ,
-                    fontSize: 20 ,
-                    letterSpacing: 2
-                ),
-              ),
-              SizedBox(height: 15),
-              Meal(
-                imageName: 'pizza-margareta.png',
-                title: 'Pizza Margarita',
-                availability: ['lunch','dinner'],
-                description: 'Spicy delicious pizza , \n take 2 and get one for free',
-                price: 40.00,
-              ),
-              Meal(
-                imageName: 'tacos.jpeg',
-                title: 'Meat Tacos',
-                availability: ['lunch','dinner'],
-                description: 'Massive tacos ,with your \npreferred sauce + 1 fries',
-                price: 30.00,
-              ),
-            ],
-          ),
-        )
-      ]
+              ]
+          );
+        }else if(snapshot.hasError){
+          return const Text('Something Went Wrong');
+        }
+        return const CircularProgressIndicator();
+      }
     );
   }
 }
