@@ -105,8 +105,8 @@ class SqlDb {
     Database? database = await db;
     return await database.query(table);
   }
-  Future<List<Map<String, dynamic>>> queryDataById(String table , int id) async {
+  Future<List<Map<String, dynamic>>> queryDataById(String table , String column , int id) async {
     Database? database = await db;
-    return await database.query(table , where: 'id = ?', whereArgs: [id]);
+    return await database.query(table , where: '$column = ?', whereArgs: [id]);
   }
 }
