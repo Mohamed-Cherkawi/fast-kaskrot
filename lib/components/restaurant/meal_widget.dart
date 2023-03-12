@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Meal extends StatefulWidget {
+class MealWidget extends StatelessWidget {
   final String imageName;
   final String title;
-  final List<String> availability;
+  final String availability;
   final String description;
   final double price;
 
-  const Meal(
+  const MealWidget(
       {super.key, required this.imageName,
       required this.title,
       required this.availability,
@@ -15,11 +15,6 @@ class Meal extends StatefulWidget {
       required this.price
       });
 
-  @override
-  State<Meal> createState() => _MealState();
-}
-
-class _MealState extends State<Meal> {
   @override
   Widget build(BuildContext context) {
    return Container(
@@ -38,7 +33,7 @@ class _MealState extends State<Meal> {
             decoration:  BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               image: DecorationImage(
-                  image: AssetImage('assets/images/${widget.imageName}'),
+                  image: AssetImage('assets/images/$imageName'),
                   fit: BoxFit.cover
               )
             ),
@@ -48,22 +43,22 @@ class _MealState extends State<Meal> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children:  [
                  Text(
-                  widget.title ,
+                  title ,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                       letterSpacing: 1
                   ),
                 ) ,
-                 Text('Availability : ${widget.availability.join(",")}'),
-                 Text(widget.description),
+                 Text('Availability : $availability'),
+                 Text(description),
                 SizedBox(
                   width: 220,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:  [
                          Text(
-                          '\$${widget.price.toString()}' ,
+                          '\$${price.toString()}' ,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
