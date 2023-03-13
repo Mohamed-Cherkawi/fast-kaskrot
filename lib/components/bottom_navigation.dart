@@ -3,7 +3,8 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 
 class NavigationAppBar extends StatelessWidget {
-  const NavigationAppBar({super.key});
+
+   const NavigationAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
