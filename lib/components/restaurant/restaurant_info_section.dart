@@ -215,13 +215,7 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                                       return Column(
                                         children: [
                                           for(Meal meal in meals)
-                                            MealWidget(
-                                              imageName: meal.imageName,
-                                              title: meal.title,
-                                              availability: meal.availability,
-                                              description: meal.description,
-                                              price: meal.price,
-                                            ),
+                                            MealWidget(meal: meal),
                                         ],
                                       );
                                 } else {

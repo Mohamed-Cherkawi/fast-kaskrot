@@ -1,19 +1,10 @@
+import 'package:fast_kaskrot/models/meal.dart';
 import 'package:flutter/material.dart';
 
 class MealWidget extends StatelessWidget {
-  final String imageName;
-  final String title;
-  final String availability;
-  final String description;
-  final double price;
+  final Meal meal;
 
-  const MealWidget(
-      {super.key, required this.imageName,
-      required this.title,
-      required this.availability,
-      required this.description,
-      required this.price
-      });
+  const MealWidget({super.key, required this.meal,});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +24,7 @@ class MealWidget extends StatelessWidget {
             decoration:  BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               image: DecorationImage(
-                  image: AssetImage('assets/images/$imageName'),
+                  image: AssetImage('assets/images/${meal.imageName}'),
                   fit: BoxFit.cover
               )
             ),
@@ -43,22 +34,22 @@ class MealWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children:  [
                  Text(
-                  title ,
+                  meal.title ,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                       letterSpacing: 1
                   ),
                 ) ,
-                 Text('Availability : $availability'),
-                 Text(description),
+                 Text('Availability : ${meal.availability}'),
+                 Text(meal.description),
                 SizedBox(
                   width: 220,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:  [
                          Text(
-                          '\$${price.toString()}' ,
+                          '\$${meal.price.toString()}' ,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
