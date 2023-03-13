@@ -1,4 +1,5 @@
 import 'package:fast_kaskrot/models/meal.dart';
+import 'package:fast_kaskrot/util/AppColor.dart';
 import 'package:flutter/material.dart';
 
 class MealWidget extends StatelessWidget {
@@ -61,7 +62,65 @@ class MealWidget extends StatelessWidget {
                               color: Colors.black ,
                               borderRadius: BorderRadius.all(Radius.circular(8))
                           ),
-                          child: const Icon(Icons.add , color: Color(0xFFEDE7E7)),
+                          child:  InkWell(
+                            child: const Icon(
+                                Icons.add ,
+                                color: Color(0xFFEDE7E7)
+                            ),
+                            onTap: (){
+                              showModalBottomSheet(
+                                  barrierColor: Colors.white.withOpacity(0.4),
+                                  backgroundColor: AppColor.scaffoldBackColor,
+                                  context: context,
+                                  builder: (BuildContext context){
+                                    return SizedBox(
+                                      height: 120,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              const Text(
+                                                'Do You Really Want To Add ',
+                                              ),
+                                              Text(
+                                                meal.title,
+                                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                              ),
+                                              const Text(
+                                                ' To Your Cart ?',
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment : MainAxisAlignment.spaceAround,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              ElevatedButton(
+                                                  onPressed: (){},
+                                                  style:  ButtonStyle(
+                                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.green.shade800),
+                                                  ),
+                                                  child: const Text('Confirm')
+                                              ),
+                                              ElevatedButton(
+                                                  onPressed: (){Navigator.pop(context);},
+                                                  style:  ButtonStyle(
+                                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                                                  ),
+                                                  child: const Text('Close')
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }
+                              );
+                            },
+                          ),
                       )
                     ],
                   ),
