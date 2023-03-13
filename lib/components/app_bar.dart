@@ -17,9 +17,14 @@ class AppBarWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           if( leadingIcon != null )
-                Icon(
-                  leadingIcon ,
-                  color: Colors.white
+                InkWell(
+                  onTap: (){
+                    Navigator.pushNamed(context, '/');
+                  },
+                  child: Icon(
+                    leadingIcon ,
+                    color: Colors.white,
+                  ),
                 ),
            Text(
               barName,
