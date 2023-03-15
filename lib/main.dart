@@ -1,8 +1,21 @@
+import 'package:fast_kaskrot/config/sql_db_config.dart';
+import 'package:fast_kaskrot/models/restaurant.dart';
 import 'package:fast_kaskrot/pages/home_page.dart';
+import 'package:fast_kaskrot/pages/restaurant_info_page.dart';
+import 'package:fast_kaskrot/service/meal_service.dart';
+import 'package:fast_kaskrot/service/restaurant_service.dart';
 import 'package:fast_kaskrot/util/AppColor.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  RestaurantService restoService = RestaurantService();
+  MealService mealService = MealService();
+
+  final response = await restoService.restaurants();
+  debugPrint(response.toString());
+  final response2 = await mealService.meals();
+  debugPrint(response2.toString());
+
   runApp(const MyApp());
 }
 
@@ -20,7 +33,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/' : (context) => const HomePage(),
-        'test' : (context) =>  Container()
+        'restaurant-info' : (context) =>  RestaurantWidget(restaurantId: ModalRoute.of(context)!.settings.arguments as int),
         // 'restaurant-menu' : (context) => const HomePage(),
         // 'cart' : (context) => const RegisterWidget(),
         // 'orders-history' : (context) => const
