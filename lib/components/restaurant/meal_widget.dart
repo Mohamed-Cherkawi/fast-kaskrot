@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 class MealWidget extends StatefulWidget {
   final Meal meal;
   IconData icon = Icons.add;
-  final Color iconColor = const Color(0xFFEDE7E7);
-  LocalStorageService localStorageService = LocalStorageService();
 
    MealWidget({
     super.key,
@@ -31,8 +29,8 @@ class _MealWidgetState extends State<MealWidget> {
     checkIfMealIsAlreadyInCart();
   }
   void checkIfMealIsAlreadyInCart() async{
-    await localStorageService.getStringList();
-    if(localStorageService.mealsIds.contains(widget.meal.id.toString())){
+    final List<String>? mealsIdsResponse = await localStorageService.getStringList();
+    if(mealsIdsResponse!.contains(widget.meal.id.toString())){
         setState(() {
           widget.icon = Icons.check;
         });
@@ -93,7 +91,7 @@ class _MealWidgetState extends State<MealWidget> {
                       child: ( widget.icon == Icons.add )
                           ?
                           InkWell(
-                        child:  Icon(widget.icon, color: widget.iconColor),
+                        child:  Icon(widget.icon, color: AppColor.iconColor),
                         onTap: () {
                           showModalBottomSheet(
                               barrierColor: Colors.white.withOpacity(0.4),
@@ -165,7 +163,7 @@ class _MealWidgetState extends State<MealWidget> {
                               });
                         },)
                           :
-                          Icon(widget.icon , color: widget.iconColor)
+                          Icon(widget.icon , color: AppColor.iconColor)
                     )
                   ],
                 ),
