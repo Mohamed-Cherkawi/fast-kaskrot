@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageService {
+  final String mealIdKeyPair = 'mealsIds';
   List<String>? _mealsIds = [];
   static SharedPreferences? _localStorageInstance;
 
@@ -10,7 +11,7 @@ class LocalStorageService {
   }
 // []
   Future<void> addMealIdToList(String id) async{
-    await getStringList();
+    _mealsIds = await getStringList();
     print(mealsIds);
     if(mealsIds.contains(id)){
         return;
@@ -20,16 +21,20 @@ class LocalStorageService {
     setStringList();
   }
   Future<void> removeMealIdFromList(String id) async {
-    getStringList();
+    _mealsIds = await getStringList();
     _mealsIds!.remove(id);
     setStringList();
   }
   Future<void> setStringList() async {
     SharedPreferences storage = await localStorageInstance;
-    await storage.setStringList('mealsIds', _mealsIds!);
+    await storage.setStringList(mealIdKeyPair, _mealsIds!);
   }
-  Future<void> getStringList() async {
+  Future<void> clearListFromLocalStorage() async{
+    SharedPreferences storage = await localStorageInstance;
+    await storage.setStringList(mealIdKeyPair,[]);
+  }
+  Future<List<String>?> getStringList() async {
      SharedPreferences storage = await localStorageInstance;
-     _mealsIds = storage.getStringList('mealsIds');
+    return storage.getStringList(mealIdKeyPair);
    }
 }
