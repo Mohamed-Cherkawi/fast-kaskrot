@@ -5,7 +5,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 class NavigationAppBar extends StatelessWidget {
   final int defaultSelectedIndex;
 
-
   const NavigationAppBar({super.key ,required this.defaultSelectedIndex});
 
   @override
@@ -30,6 +29,7 @@ class NavigationAppBar extends StatelessWidget {
           icon: Icons.shopping_cart_outlined,
           text: 'Cart',
           onPressed: () {
+            Navigator.pushNamed(context, 'cart');
           },
         ),
         const GButton(
