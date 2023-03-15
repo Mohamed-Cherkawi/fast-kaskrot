@@ -19,24 +19,14 @@ class RestaurantInfo extends StatefulWidget {
 }
 
 class _RestaurantInfoState extends State<RestaurantInfo> {
-  Future<List<Restaurant>>? _restaurantsFuture;
-  Future<List<Meal>>? _mealsFuture;
 
   final MealService mealService = MealService();
   final RestaurantService restaurantService = RestaurantService();
 
-
-  @override
-  void initState() {
-    super.initState();
-    _restaurantsFuture = restaurantService.getRestaurantsById(widget.restaurantId);
-    _mealsFuture = mealService.getMealsByRestaurantId(widget.restaurantId);
-  }
-
   @override
    Widget build(BuildContext context) {
     return FutureBuilder<List<Restaurant>>(
-      future: _restaurantsFuture,
+      future: restaurantService.getRestaurantsById(widget.restaurantId),
       builder: (context , snapshot) {
         if(snapshot.hasData) {
           final restaurant = snapshot.data!.first;
@@ -204,7 +194,7 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                       ),
                       const SizedBox(height: 15),
                       FutureBuilder(
-                          future: _mealsFuture,
+                          future: mealService.getMealsByRestaurantId(widget.restaurantId),
                           builder: (context , snapshot){
                             if(snapshot.hasData){
                               final meals = snapshot.data!;
