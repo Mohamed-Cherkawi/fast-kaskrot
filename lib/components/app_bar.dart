@@ -8,36 +8,45 @@ class AppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:  const EdgeInsets.symmetric(
-        vertical: 15,
-        horizontal: 15,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          if( leadingIcon != null )
-                InkWell(
-                  onTap: (){
-                    Navigator.pushNamed(context, '/');
-                  },
-                  child: Icon(
-                    leadingIcon ,
-                    color: Colors.white,
+    return Container(
+      height: 60,
+      color: Colors.black,
+      child: Padding(
+        padding:  const EdgeInsets.symmetric(
+          vertical: 15,
+          horizontal: 15,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if( leadingIcon != null )
+                  InkWell(
+                    onTap: (){
+                      Navigator.pushNamed(context, '/');
+                    },
+                    child: Icon(
+                      leadingIcon ,
+                      color: Colors.white,
+                    ),
                   ),
+             Text(
+                barName,
+                style: const TextStyle(
+                    color: Colors.white ,
+                    fontWeight: FontWeight.w900 ,
+                    fontSize: 16 ,
+                    letterSpacing: 1
                 ),
-           Text(
-              barName,
-              style: const TextStyle(color: Colors.white),
-          ),
-          InkWell(
-            onTap: (){},
-            child: const Icon(
-                Icons.notifications_none ,
-                color: Colors.white
             ),
-            ),
-        ],
+            InkWell(
+              onTap: (){},
+              child: const Icon(
+                  Icons.notifications_none ,
+                  color: Colors.white
+              ),
+              ),
+          ],
+        ),
       ),
     );
   }
