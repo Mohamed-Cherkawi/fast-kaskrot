@@ -1,5 +1,4 @@
-import 'package:fast_kaskrot/config/sql_db_config.dart';
-import 'package:fast_kaskrot/models/restaurant.dart';
+import 'package:fast_kaskrot/pages/cart_page.dart';
 import 'package:fast_kaskrot/pages/home_page.dart';
 import 'package:fast_kaskrot/pages/restaurant_info_page.dart';
 import 'package:fast_kaskrot/service/meal_service.dart';
@@ -32,13 +31,10 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColor.scaffoldBackColor
       ),
       routes: {
-        '/' : (context) => const HomePage(),
+        '/' : (context) =>  const HomePage(),
         'restaurant-info' : (context) =>  RestaurantWidget(restaurantId: ModalRoute.of(context)!.settings.arguments as int),
-        // 'restaurant-menu' : (context) => const HomePage(),
-        // 'cart' : (context) => const RegisterWidget(),
+        'cart' : (context) => CartPage(),
         // 'orders-history' : (context) => const
-        //'profile' : (context) => Scaffold(),
-        //'transaction' : (context) => Transaction()
         },
     );
   }
