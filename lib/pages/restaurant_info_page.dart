@@ -13,7 +13,7 @@ class RestaurantWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       body: RestaurantInfo(restaurantId: restaurantId),
-      bottomNavigationBar:  NavigationAppBar(),
+      bottomNavigationBar:  const NavigationAppBar(defaultSelectedIndex: 0),
     );
   }
 
