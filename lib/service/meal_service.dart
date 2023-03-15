@@ -1,10 +1,13 @@
 import 'package:fast_kaskrot/models/meal.dart';
+import 'package:fast_kaskrot/service/local_storage_service.dart';
 import 'package:flutter/material.dart';
 
 import '../config/sql_db_config.dart';
 
 class MealService {
   SqlDb database = SqlDb();
+  LocalStorageService localStorageService = LocalStorageService();
+
   final String tableName = 'meal';
 
   Future<void> insertMeal(Meal meal) async {
@@ -20,7 +23,19 @@ class MealService {
     // Convert the List<Map<String, dynamic> into a List<Meal>.
     return _listGenerator(maps);
   }
+  Future<Meal> getMealById(int id) async {
+    final List<Map<String, dynamic>> maps = await database.queryDataById(tableName,'id' ,id);
 
+    return _listGenerator(maps).first;
+  }
+  Future<List<Meal>> getAllCartMeal() async {
+    List<Meal> meals = [];
+    List<String>? mealsIds = await localStorageService.getStringList();
+    for (String mealId in mealsIds!) {
+        meals.add(await getMealById(int.parse(mealId)));
+    }
+    return meals;
+  }
   Future<List<Meal>> getMealsByRestaurantId(int id) async {
     final List<Map<String, dynamic>> maps = await database.queryDataById(tableName,'restaurant_id' ,id);
 
