@@ -10,12 +10,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        children:  [
-            Container(
-                height: 60,
-                color: Colors.black,
-                child:  AppBarWidget(barName: 'Home')
-            ),
+        children: [
+            AppBarWidget(barName: 'Home'),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
               child: const Text(
@@ -30,7 +26,7 @@ class HomePage extends StatelessWidget {
             const RestaurantSection()
         ],
       ),
-      bottomNavigationBar:  NavigationAppBar()
+      bottomNavigationBar: const NavigationAppBar(defaultSelectedIndex: 0)
     );
   }
 }
