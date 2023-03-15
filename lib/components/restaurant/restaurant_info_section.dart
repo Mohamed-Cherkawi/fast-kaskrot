@@ -42,11 +42,9 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
           final restaurant = snapshot.data!.first;
           return ListView(
               children: [
-                Container(
-                    height: 60,
-                    color: Colors.black,
-                    child: AppBarWidget(leadingIcon: Icons.arrow_back_outlined,
-                        barName: 'Restaurant')
+                AppBarWidget(
+                    leadingIcon: Icons.arrow_back_outlined,
+                    barName: 'Restaurant'
                 ),
                 SizedBox(
                   width: double.infinity,
