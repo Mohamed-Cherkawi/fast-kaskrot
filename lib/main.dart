@@ -1,27 +1,45 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:fast_kaskrot/pages/cart_page.dart';
+import 'package:fast_kaskrot/pages/history_page.dart';
 import 'package:fast_kaskrot/pages/home_page.dart';
 import 'package:fast_kaskrot/pages/restaurant_info_page.dart';
-import 'package:fast_kaskrot/service/meal_service.dart';
-import 'package:fast_kaskrot/service/restaurant_service.dart';
 import 'package:fast_kaskrot/util/AppColor.dart';
 import 'package:flutter/material.dart';
 
+void initializeNotification(){
+  AwesomeNotifications().initialize(null, [
+    NotificationChannel(channelKey: 'chanelKey',
+        channelName: 'Basic notifications',
+        channelDescription: 'Notifivation channel for basic tests')
+  ],
+      debug: true
+  );
+}
 void main() async {
-  RestaurantService restoService = RestaurantService();
-  MealService mealService = MealService();
-
-  final response = await restoService.restaurants();
-  debugPrint(response.toString());
-  final response2 = await mealService.meals();
-  debugPrint(response2.toString());
-
+  initializeNotification();
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+
+  @override
+  void initState() {
+    super.initState();
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) => {
+      if(!isAllowed){
+        AwesomeNotifications().requestPermissionToSendNotifications()
+      }
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,8 +51,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/' : (context) =>  const HomePage(),
         'restaurant-info' : (context) =>  RestaurantWidget(restaurantId: ModalRoute.of(context)!.settings.arguments as int),
-        'cart' : (context) => CartPage(),
-        // 'orders-history' : (context) => const
+        'cart' : (context) => const CartPage(),
+        'orders-history' : (context) => HistoryPage()
         },
     );
   }
