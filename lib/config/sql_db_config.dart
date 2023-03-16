@@ -23,7 +23,7 @@ class SqlDb {
   }
   Future<Database> initialDb() async {
     WidgetsFlutterBinding.ensureInitialized();
-    return await openDatabase(await getDatabasePath(),onCreate: onCreate , version: 31 , onUpgrade: onUpgrade);
+    return await openDatabase(await getDatabasePath(),onCreate: onCreate , version: 41  , onUpgrade: onUpgrade);
   }
 
   Future<void> onCreate(Database db , int version) async {
@@ -45,6 +45,21 @@ class SqlDb {
       "address" TEXT NOT NULL,
       "image_name" TEXT NOT NULL,
       "rating" TEXT NOT NULL
+      )
+      ''');
+    await db.execute('''
+      CREATE TABLE "orders" (
+      "id" INTEGER PRIMARY KEY,
+      "ordered_at" TIMESTAMP,
+      "total_price" REAL NOT NULL,
+      "ordered_by" INTEGER NOT NULL
+      );
+      ''');
+    await db.execute('''
+      CREATE TABLE "orders_meals" (
+      "order_id" INTEGER NOT NULL,
+      "meal_id" INTEGER NOT NULL,
+      "price" REAL NOT NULL
       )
       ''');
     await db.execute('''
@@ -85,8 +100,8 @@ class SqlDb {
     debugPrint('============ Create Database and Tables ================');
   }
 
-  Future<void> onUpgrade(Database database , int oldVersion , int newVersion) async {
-    debugPrint("=================  OnUpgrade called =================");
+  Future<void> onUpgrade(Database db , int oldVersion , int newVersion) async {
+    debugPrint("=================  OnUpgrade called ==========================");
   }
   deleteMyDatabase() async {
     await deleteDatabase(await getDatabasePath());
@@ -119,5 +134,9 @@ class SqlDb {
   Future<List<Map<String, dynamic>>> queryDataById(String table , String column , int id) async {
     Database? database = await db;
     return await database.query(table , where: '$column = ?', whereArgs: [id]);
+  }
+  Future<List<Map<String, dynamic>>> querySingleDataById(String table,String column,int id) async {
+    Database? database = await db;
+    return await database.query(table, where: '$column = ?', whereArgs: [id],limit: 1);
   }
 }
