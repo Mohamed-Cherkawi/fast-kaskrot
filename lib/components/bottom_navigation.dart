@@ -32,9 +32,12 @@ class NavigationAppBar extends StatelessWidget {
             Navigator.pushNamed(context, 'cart');
           },
         ),
-        const GButton(
+        GButton(
           icon: Icons.history_sharp,
           text: 'History',
+          onPressed: (){
+            Navigator.pushNamed(context, 'orders-history');
+          },
         ),
       ],
     );
