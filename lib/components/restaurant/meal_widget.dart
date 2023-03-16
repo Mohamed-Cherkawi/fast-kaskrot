@@ -1,5 +1,4 @@
 import 'package:fast_kaskrot/models/meal.dart';
-import 'package:fast_kaskrot/service/cart_service.dart';
 import 'package:fast_kaskrot/service/local_storage_service.dart';
 import 'package:fast_kaskrot/util/AppColor.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +17,6 @@ class MealWidget extends StatefulWidget {
 }
 
 class _MealWidgetState extends State<MealWidget> {
-  final CartService cartService = CartService();
-
   final LocalStorageService localStorageService = LocalStorageService();
 
 
