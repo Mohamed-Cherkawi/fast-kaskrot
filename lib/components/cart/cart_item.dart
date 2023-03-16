@@ -6,24 +6,34 @@ import '../../models/meal.dart';
 import '../../util/AppColor.dart';
 
 class CartItem extends StatefulWidget {
+  final Function refreshParentHolderState;
+  final Function(int mealId, double totalMealPrice) updatePriceById;
   final Meal meal;
-  int quantity = 1;
-  double totalMealPrice = 0;
 
-  CartItem({super.key, required this.meal});
+  const CartItem({super.key, required this.meal , required this.refreshParentHolderState , required this.updatePriceById});
 
   @override
   State<CartItem> createState() => _CartItemState();
 }
 
 class _CartItemState extends State<CartItem> {
+  int quantity = 1;
+  double totalMealPrice = 0;
 
+  void calculateQuantity(bool isIncrementing){
+    isIncrementing ? quantity++ : quantity--;
+    setState(() {
+      totalMealPrice = widget.meal.price * quantity;
+    });
+  }
+  void updatePriceInParentMap() {
+    widget.updatePriceById(widget.meal.id,totalMealPrice);
+  }
   @override
   void initState() {
     super.initState();
     setState(() {
-      widget.totalMealPrice = widget.meal.price;
-      print(widget.totalMealPrice);
+      totalMealPrice = widget.meal.price;
     });
   }
   @override
@@ -73,9 +83,7 @@ class _CartItemState extends State<CartItem> {
                         ),
                       onTap: () async{
                         await LocalStorageService().removeMealIdFromList(widget.meal.id.toString());
-                          setState(() {
-
-                          });
+                          widget.refreshParentHolderState();
                       },
                     )
                   ],
@@ -98,9 +106,10 @@ class _CartItemState extends State<CartItem> {
                             child: InkWell(
                                 child: SvgPicture.asset('assets/icons/minus.svg'),
                                 onTap: (){
-                                  if(widget.quantity >= 2) {
+                                  if(quantity >= 2) {
                                     setState(() {
                                       calculateQuantity(false);
+                                      updatePriceInParentMap();
                                     });
                                   }
                                 })
@@ -108,7 +117,7 @@ class _CartItemState extends State<CartItem> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Text(
-                            widget.quantity.toString(),
+                            quantity.toString(),
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold ,
                                 fontSize: 19
@@ -123,10 +132,9 @@ class _CartItemState extends State<CartItem> {
                             child: InkWell(
                                 child:  Icon(Icons.add, color: AppColor.iconColor),
                                 onTap: (){
-                                  if(widget.quantity <= 6) {
-                                    setState(() {
+                                  if(quantity <= 6) {
                                       calculateQuantity(true);
-                                    });
+                                      updatePriceInParentMap();
                                   }
                                 })
                         ),
@@ -134,7 +142,7 @@ class _CartItemState extends State<CartItem> {
                     ),
 
                     Text(
-                      '\$${widget.totalMealPrice}',
+                      '\$$totalMealPrice',
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
@@ -148,9 +156,5 @@ class _CartItemState extends State<CartItem> {
         ],
       ),
     );
-  }
-  void calculateQuantity(bool isIncrementing){
-      isIncrementing ? widget.quantity++ : widget.quantity--;
-      widget.totalMealPrice = widget.meal.price * widget.quantity;
   }
 }
